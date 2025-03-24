@@ -6,8 +6,6 @@ import java.util.StringTokenizer;
 public class Main {
     static int hour;
     static int min;
-    static int alramHour;
-    static int alramMin;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,21 +15,25 @@ public class Main {
         hour = Integer.parseInt(st.nextToken());
         min = Integer.parseInt(st.nextToken());
 
-        alram(hour, min);
+        int[] newTime = alarm(hour, min);
+        hour = newTime[0];
+        min = newTime[1];
 
-        System.out.println(alramHour + " " + alramMin);
+        System.out.println(hour + " " + min);
     }
 
-    static void alram(int hour, int min) {
+    static int[] alarm(int hour, int min) {
         if (min >= 45) {
-            alramMin = min - 45;
-            alramHour = hour;
+            min -= 45;
         } else {
-            alramMin = min + 15;
-            alramHour = hour -1;
+            min += 15;
             if (hour == 0) {
-                alramHour = 23;
+                hour = 23;
+            } else {
+                hour -= 1;
             }
         }
+
+        return new int[] { hour, min };
     }
 }
